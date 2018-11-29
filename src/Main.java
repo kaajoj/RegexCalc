@@ -26,42 +26,44 @@ public class Main {
             }
 
             if (ifLetter == "0") {
-                    switch (token) {
-                        case "=":
+                switch (token) {
+                    case "=":
 
-                            break;
-                        case "+":
-                         //   System.out.print("Add ");
-                            stack.push(stack.pop() + stack.pop());
-                            break;
-                        case "-":
+                        break;
+                    case "+":
+                        //   System.out.print("Add ");
+                        stack.push(stack.pop() + stack.pop());
+                        break;
+                    case "-":
                         //    System.out.print("Sub ");
-                            stack.push(-stack.pop() + stack.pop());
-                            break;
-                        case "*":
-                         //   System.out.print("Mul ");
-                            stack.push(stack.pop() * stack.pop());
-                            break;
-                        case "/":
-                         //   System.out.print("Div ");
-                            int temp = stack.pop();
-                            stack.push(stack.pop() / temp);
-                            break;
+                        stack.push(-stack.pop() + stack.pop());
+                        break;
+                    case "*":
+                        //   System.out.print("Mul ");
+                        stack.push(stack.pop() * stack.pop());
+                        break;
+                    case "/":
+                        //   System.out.print("Div ");
+                        int temp = stack.pop();
+                        stack.push(stack.pop() / temp);
+                        break;
 
-                        default:
+                    default:
                         //    System.out.print("Push ");
-                            stack.push(Integer.parseInt(token));
-                            break;
-                    }
-                   // System.out.println(stack);
-                } else {
-                    letter = ifLetter;
-                    ifLetter = "0";
-                 //   System.out.println("");
+                        stack.push(Integer.parseInt(token));
+                        break;
                 }
+                // System.out.println(stack);
+            } else {
+                letter = ifLetter;
+                ifLetter = "0";
+                //   System.out.println("");
+            }
         }
-        int temp = stack.peek();
-        map.put(letter, temp);
+        if(!stack.isEmpty()) {
+            int temp = stack.peek();
+            map.put(letter, temp);
+        }
         //System.out.println("Wynik: " + stack.pop());
         //System.out.println(map.get("d"));
         return map;
@@ -71,19 +73,31 @@ public class Main {
 
         Map<String, Integer> map = new HashMap<>();
         int i = 0;
+        String oneLetter = "";
 
-        while(i<args.length) {
+        while (i < args.length) {
             //System.out.println(args[i] + " ");
-                                                    // zrobić tutaj regex sprawdzający czy podawana jest tylko jeden znak, dowolna litera
-                                                    // jeżeli tak to spradzam mam ją w map, jak nie ma to wypisuje ??? i nie wchodze do calc
-            if (map.containsKey(args[i])) {
-                System.out.println(map.get(args[i]));
-            } else map=calc(args[i]);
+
+            String text = args[i];
+            String pattern = "[a-zA-Z]{1}";
+            Pattern regex = Pattern.compile(pattern);
+            Matcher matcher = regex.matcher(text);
+
+            while (matcher.find()) {
+                oneLetter = matcher.group(0);
+                //System.out.print(matcher.group(0) + " ");
+                if (map.containsKey(oneLetter)) {
+                    System.out.println(map.get(args[i]));
+                } else map = calc(args[i]);
+
+            }
+            if (!map.containsKey(oneLetter)) {
+                System.out.println("???");
+            }
             //System.out.println("Map: " + map);
             //System.out.println("");
             i++;
+
         }
-
-
     }
 }
