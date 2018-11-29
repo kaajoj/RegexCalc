@@ -12,8 +12,8 @@ public class Main {
         String letter = "";
 
         for (String token : arg.split("\\s+")) {
-            System.out.print(token);
-            System.out.print(" ");
+            //System.out.print(token);
+            //System.out.print(" ");
 
             String text = token;
             String pattern = "[a-zA-Z]+";
@@ -31,39 +31,39 @@ public class Main {
 
                             break;
                         case "+":
-                            System.out.print("Add ");
+                         //   System.out.print("Add ");
                             stack.push(stack.pop() + stack.pop());
                             break;
                         case "-":
-                            System.out.print("Sub ");
+                        //    System.out.print("Sub ");
                             stack.push(-stack.pop() + stack.pop());
                             break;
                         case "*":
-                            System.out.print("Mul ");
+                         //   System.out.print("Mul ");
                             stack.push(stack.pop() * stack.pop());
                             break;
                         case "/":
-                            System.out.print("Div ");
+                         //   System.out.print("Div ");
                             int temp = stack.pop();
                             stack.push(stack.pop() / temp);
                             break;
 
                         default:
-                            System.out.print("Push ");
+                        //    System.out.print("Push ");
                             stack.push(Integer.parseInt(token));
                             break;
                     }
-                    System.out.println(stack);
+                   // System.out.println(stack);
                 } else {
                     letter = ifLetter;
                     ifLetter = "0";
-                    System.out.println("");
+                 //   System.out.println("");
                 }
         }
         int temp = stack.peek();
         map.put(letter, temp);
-        System.out.println("Wynik: " + stack.pop());
-        System.out.println(map.get("d"));
+        //System.out.println("Wynik: " + stack.pop());
+        //System.out.println(map.get("d"));
         return map;
     }
 
@@ -73,13 +73,14 @@ public class Main {
         int i = 0;
 
         while(i<args.length) {
-            System.out.println(args[i] + " ");
-
+            //System.out.println(args[i] + " ");
+                                                    // zrobić tutaj regex sprawdzający czy podawana jest tylko jeden znak, dowolna litera
+                                                    // jeżeli tak to spradzam mam ją w map, jak nie ma to wypisuje ??? i nie wchodze do calc
             if (map.containsKey(args[i])) {
                 System.out.println(map.get(args[i]));
             } else map=calc(args[i]);
-            System.out.println("Map: " + map);
-            System.out.println("");
+            //System.out.println("Map: " + map);
+            //System.out.println("");
             i++;
         }
 
