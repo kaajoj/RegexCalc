@@ -1,4 +1,5 @@
-import java.sql.SQLOutput;
+import java.io.File;
+import java.io.IOException;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -70,16 +71,30 @@ public class Main {
         return map;
     }
 
-    public static void main(String[] args) {
-
+    public static void main(String[] args) throws IOException {
         Map<String, Integer> map = new HashMap<>();
+        ArrayList<String> lista = new ArrayList<>();
+
         int i = 0;
+        int j = 0;
         String oneLetter = "";
 
-        while (i < args.length) {
-            //System.out.println(args[i] + " ");
+        String filePath = "test.txt";
 
-            String text = args[i];
+        String line = "";
+
+        File file = new File(filePath);
+        Scanner sc = new Scanner(file);
+        while (sc.hasNextLine()) {
+            line = sc.nextLine();
+            lista.add(line);
+            System.out.println(lista.get(j));
+            j++;
+        }
+
+        while (i < lista.size()) {
+            //System.out.println(lista.get(i) + " ");
+            String text = lista.get(i);
             String pattern = "[a-zA-Z]{1}";
             Pattern regex = Pattern.compile(pattern);
             Matcher matcher = regex.matcher(text);
@@ -88,10 +103,10 @@ public class Main {
                 oneLetter = matcher.group(0);
                 //System.out.print(matcher.group(0) + " ");
                 if (map.containsKey(oneLetter)) {
-                    if(map.get(args[i])!=null)
-                    System.out.println(map.get(args[i]));
+                    if(map.get(text)!=null)
+                    System.out.println(map.get(text));
                     else System.out.println("Error");
-                } else map = calc(args[i]);
+                } else map = calc(text);
 
             }
             if (!map.containsKey(oneLetter)) {
@@ -100,7 +115,6 @@ public class Main {
             //System.out.println("Map: " + map);
             //System.out.println("");
             i++;
-
         }
     }
 }
