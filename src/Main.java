@@ -4,7 +4,7 @@ import java.util.regex.Pattern;
 
 public class Main {
 
-    public static int calc(String arg) {
+    public static Map calc(String arg) {
         Stack<Integer> stack = new Stack<>();
         Map<String, Integer> map = new HashMap<>();
 
@@ -26,57 +26,59 @@ public class Main {
             }
 
             if (ifLetter == "0") {
-                switch (token) {
-                    case "=":
+                    switch (token) {
+                        case "=":
 
-                        break;
-                    case "+":
-                        System.out.print("Add ");
-                        stack.push(stack.pop() + stack.pop());
-                        break;
-                    case "-":
-                        System.out.print("Sub ");
-                        stack.push(-stack.pop() + stack.pop());
-                        break;
-                    case "*":
-                        System.out.print("Mul ");
-                        stack.push(stack.pop() * stack.pop());
-                        break;
-                    case "/":
-                        System.out.print("Div ");
-                        int temp = stack.pop();
-                        stack.push(stack.pop() / temp);
-                        break;
+                            break;
+                        case "+":
+                            System.out.print("Add ");
+                            stack.push(stack.pop() + stack.pop());
+                            break;
+                        case "-":
+                            System.out.print("Sub ");
+                            stack.push(-stack.pop() + stack.pop());
+                            break;
+                        case "*":
+                            System.out.print("Mul ");
+                            stack.push(stack.pop() * stack.pop());
+                            break;
+                        case "/":
+                            System.out.print("Div ");
+                            int temp = stack.pop();
+                            stack.push(stack.pop() / temp);
+                            break;
 
-                    default:
-                        System.out.print("Push ");
-                        stack.push(Integer.parseInt(token));
-                        break;
+                        default:
+                            System.out.print("Push ");
+                            stack.push(Integer.parseInt(token));
+                            break;
+                    }
+                    System.out.println(stack);
+                } else {
+                    letter = ifLetter;
+                    ifLetter = "0";
+                    System.out.println("");
                 }
-                System.out.println(stack);
-            } else{
-                letter = ifLetter;
-                ifLetter = "0";
-                System.out.println("");
-            }
-
         }
         int temp = stack.peek();
         map.put(letter, temp);
         System.out.println("Wynik: " + stack.pop());
         System.out.println(map.get("d"));
-        return temp;
+        return map;
     }
 
     public static void main(String[] args) {
 
-        int stack = 0;
+        Map<String, Integer> map = new HashMap<>();
         int i = 0;
 
         while(i<args.length) {
             System.out.println(args[i] + " ");
-            stack+=calc(args[i]);
-            System.out.println("Stack: " + stack);
+
+            if (map.containsKey(args[i])) {
+                System.out.println(map.get(args[i]));
+            } else map=calc(args[i]);
+            System.out.println("Map: " + map);
             System.out.println("");
             i++;
         }
