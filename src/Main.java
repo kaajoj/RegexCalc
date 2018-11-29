@@ -1,4 +1,6 @@
+import javax.xml.bind.SchemaOutputResolver;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.*;
 import java.util.regex.Matcher;
@@ -80,16 +82,19 @@ public class Main {
         String oneLetter = "";
 
         String filePath = "test.txt";
-
         String line = "";
 
-        File file = new File(filePath);
-        Scanner sc = new Scanner(file);
-        while (sc.hasNextLine()) {
-            line = sc.nextLine();
-            lista.add(line);
-            System.out.println(lista.get(j));
-            j++;
+        try {
+            File file = new File(filePath);
+            Scanner sc = new Scanner(file);
+            while (sc.hasNextLine()) {
+                line = sc.nextLine();
+                lista.add(line);
+                System.out.println(lista.get(j));
+                j++;
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Nie można odnaleźć określonego pliku wejściowego: " + filePath);
         }
 
         while (i < lista.size()) {
