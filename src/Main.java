@@ -1,3 +1,4 @@
+import java.sql.SQLOutput;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -11,11 +12,11 @@ public class Main {
         String ifLetter = "0";
         String letter = "";
 
-        for (String token : arg.split("\\s+")) {
-            //System.out.print(token);
+        for (String equation : arg.split("\\s+")) {
+            //System.out.print(equation);
             //System.out.print(" ");
 
-            String text = token;
+            String text = equation;
             String pattern = "[a-zA-Z]+";
             Pattern regex = Pattern.compile(pattern);
             Matcher matcher = regex.matcher(text);
@@ -26,7 +27,7 @@ public class Main {
             }
 
             if (ifLetter == "0") {
-                switch (token) {
+                switch (equation) {
                     case "=":
 
                         break;
@@ -50,7 +51,7 @@ public class Main {
 
                     default:
                         //    System.out.print("Push ");
-                        stack.push(Integer.parseInt(token));
+                        stack.push(Integer.parseInt(equation));
                         break;
                 }
                 // System.out.println(stack);
@@ -87,7 +88,9 @@ public class Main {
                 oneLetter = matcher.group(0);
                 //System.out.print(matcher.group(0) + " ");
                 if (map.containsKey(oneLetter)) {
+                    if(map.get(args[i])!=null)
                     System.out.println(map.get(args[i]));
+                    else System.out.println("Error");
                 } else map = calc(args[i]);
 
             }
